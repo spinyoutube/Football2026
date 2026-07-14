@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spinner Battle</title>
+<style>
+html,body{margin:0;height:100%;font-family:Arial,sans-serif;background:#111;color:#fff;overflow:hidden}
+#setup{position:fixed;inset:0;background:#111;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:15px}
+input,button{font-size:22px;padding:10px}
+#board{display:none;height:100vh}
+.side{width:50%;float:left;height:100%;text-align:center;box-sizing:border-box;padding:20px}
+.left{background:#0b63ff}.right{background:#d92d2d}
+.photo{height:48vh;border:4px solid #fff;border-radius:18px;background:#fff;object-fit:cover}
+.name{font-size:42px;font-weight:bold;margin-top:15px}
+.score{font-size:130px;font-weight:bold;cursor:pointer;user-select:none}
+.banner{position:fixed;left:0;right:0;bottom:0;background:#111;color:#FFD700;font-size:34px;font-weight:bold;text-align:center;padding:18px;border-top:4px solid #FFD700}
+</style></head>
+<body>
+<div id="setup">
+<h1>Spinner Battle Setup</h1>
+<input id="n1" value="FRANCE"><input id="f1" type="file" accept="image/*">
+<input id="n2" value="SPAIN"><input id="f2" type="file" accept="image/*">
+<button onclick="go()">Start Battle</button>
+</div>
+<div id="board">
+<div class="side left">
+<img id="p1" class="photo">
+<div id="name1" class="name"></div>
+<div class="score" onclick="add('s1')" oncontextmenu="event.preventDefault();sub('s1');"><span id="s1">0</span></div>
+</div>
+<div class="side right">
+<img id="p2" class="photo">
+<div id="name2" class="name"></div>
+<div class="score" onclick="add('s2')" oncontextmenu="event.preventDefault();sub('s2');"><span id="s2">0</span></div>
+</div>
+<div class="banner">🏆 RACE TO 50 POINTS • FIRST TEAM WINS! 🏆</div>
+</div>
+<script>
+function go(){document.getElementById('setup').style.display='none';document.getElementById('board').style.display='block';document.getElementById('name1').innerHTML=document.getElementById('n1').value;document.getElementById('name2').innerHTML=document.getElementById('n2').value;load('f1','p1');load('f2','p2');}
+function load(f,p){let file=document.getElementById(f).files[0];if(file){document.getElementById(p).src=URL.createObjectURL(file);}}
+function add(id){let x=document.getElementById(id);x.innerHTML=parseInt(x.innerHTML)+1;}
+function sub(id){let x=document.getElementById(id);let v=parseInt(x.innerHTML);if(v>0)x.innerHTML=v-1;}
+</script>
+</body></html>
